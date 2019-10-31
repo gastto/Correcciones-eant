@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>POO en JavaScript</title>
+  </head>
+  <body>
+    <h1>POO en JavaScript</h1>
+    <script src="producto.class.js"></script>
+    <script>
+      let unProducto = new Producto("Café Torrado", 340, 94.99, true) //<-- Instanciando un objeto "Producto"
+      let otroProducto = new Producto("Jugo de Naranja", 250, 55.85, false)
+      let tercerProducto = new Producto("Té de Mazanilla", 185, 199.99)
+
+      otroProducto.aplicarDescuento(10)
+
+      unProducto.Mostrar() //<-- Invoco al metodo Mostrar a traves de la "instancia" del objeto Producto
+      otroProducto.Mostrar()
+      tercerProducto.Mostrar()
+
+      console.log( unProducto )
+      console.log( otroProducto )
+      console.log( tercerProducto )
+
+      ////////////////////
+      // ACA PROGRAMO COSAS POWER CON AJAX
+
+      const miniFirefox = new XMLHttpRequest()
+      miniFirefox.open("GET", "https://api.myjson.com/bins/1giaf3") //<-- Metodo de Instancia
+      // Evento
+      miniFirefox.onload = function(){ //<-- Petición exitosa!
+        
+        console.log(this)
+
+        if( this.status == 200 ){ //<-- Respuesta exitosa!
+
+                   
+          //let productos = JSON.parse(this.response) //<-- de JSON a Object
+          let productos = Producto.parse(this.response) //<-- de JSON a Producto
+
+          productos.forEach(producto => {
+            producto.Mostrar()
+          })
+
+        }
+
+      }
+      miniFirefox.onerror = function(){
+
+      }
+      miniFirefox.send() //<-- Metodo de Instancia
+    </script>
+  </body>
+</html>
+
+
+
