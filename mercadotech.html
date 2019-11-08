@@ -45,72 +45,34 @@
 		</footer>
 		<script src="https://blackrockdigital.github.io/startbootstrap-shop-item/vendor/jquery/jquery.min.js"></script>
 		<script src="https://blackrockdigital.github.io/startbootstrap-shop-item/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+		<script src="https://apis.google.com/js/api:client.js"></script>
 		<script src="producto.class.js"></script>
 		<script>
-			/* Persistencia en JavaScript con la API Storage */
-			// window.localStorage && window.sessionStorage //
 
-			//window.localStorage.setItem("USUARIOS", "Tambien voy a guardar los datos de los usuarios :(")
-			//alert( window.localStorage.getItem("PRODUCTOS") )
-			//window.localStorage.removeItem("USUARIOS")
-			//window.localStorage.clear()
+			//// LOGIN CON GOOGLE 
+			
+			gapi.load("auth2", function(){
 
-			// YO, JAVASCRIPT PROMETO CONVERTIR Y MOSTRAR PRODUCTOS CUANDO TENGA DATOS //
-		/*
-			const promesa  = new Promise(function(ok, error){
-
-				if( !window.localStorage.getItem("PRODUCTOS") ){
-					//Si NO existe el LS... traer los datos de la API
-					const miniFirefox = new XMLHttpRequest()
-					miniFirefox.open("GET", "https://api.myjson.com/bins/dcg2p")
-					miniFirefox.onload = function(){ //<-- Petición exitosa :)
-						if( this.status == 200 ){ //<-- Respuesta exitosa!
-							//Guardar los datos de la peticion
-							window.localStorage.setItem("PRODUCTOS", this.response)
-
-							ok( this.response ) //<-- Ejecutar el metodo then()...
-						} else {
-							this.onerror()
-						}
-					}
-					miniFirefox.onerror = function(){ //<-- Petición NO exitosa :(
-						error( this.statusText ) //<-- Ejecutar el metodo catch()...
-					}
-					miniFirefox.send() //<-- Ejecutar la petición asincronica (...esperar a que responda el server)
-				} else {
-					//Sino... efectivamente existe un LS, entonces... 
-					ok( window.localStorage.getItem("PRODUCTOS") ) //<-- Ejecutar el metodo then()...
-				}
-
-			})
-
-			promesa.then(function(rta){ //<-- Esto ocurre cuando hay datos (desde una API o de un Storage)
-
-				// Usar los datos para crear/mostrar objetos PRODUCTO
-				let productos = Producto.parse( rta )
-
-				productos.forEach(producto => {
-					producto.Mostrar()
+				windows.auth = gapi.auth2.init({
+					client_id: '461192005477-4v1iac6lio3f0t7pank1tq2gp01muh1h.apps.googleusercontent.com',
+        			cookiepolicy: 'single_host_origin'
 				})
 
 			})
+			
+			//// LOGIN CON GOOGLE
 
-			promesa.catch(function(rta){ //<-- Esto ocurre cuando "sale mal"
-
-				document.querySelector("#productos-destacados").innerHTML = `<div class="alert alert-danger" role="alert">${rta}</div>`
-
-			})
-		*/
-/*
-			promesa.finally(function(){
-				confirm("¿¿Funciono??")
-			})
-*/
 			//* AJAX Moderno con el metodo fetch() *//
 			const crearCatalogo = function(items){
 
 				let productos = Producto.parse(items)
-				productos.forEach( producto => { producto.Mostrar("#ultimos-productos") })
+
+				// let descuento = confirm("Aplicar descuento del 50%") ? 50 : -1
+
+				productos.forEach( producto => { 
+					producto.Mostrar("#ultimos-productos") 
+					// producto.aplicarDescuento(descuento)
+				})
 			}
 
 			if( !window.localStorage.getItem("PRODUCTOS") ){ // ↓ Obtener los datos de la API
@@ -124,31 +86,6 @@
 				crearCatalogo( window.localStorage.getItem("PRODUCTOS") ) //<-- Los paso como String
 			}
 
-			//Funcionalidad Modelo:
-			/*
-			fetch("https://api.myjson.com/bins/dcg2p").then(function(rta){
-				debugger
-
-				return rta.json()
-
-			}).then(function(items){
-
-				return items[2]
-
-			}).then(function(item){
-
-				return item.Nombre
-
-			}).then(function(nombre){
-
-				return nombre.substr(0,1)
-
-			}).then(function(letra){
-
-				console.log(`La primer letra es: ${letra}`)
-
-			})
-			*/
 		</script>
 	</body>
 </html>
