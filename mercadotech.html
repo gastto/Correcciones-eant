@@ -66,7 +66,7 @@
 				// No está logeado!
 				 // <-- acá ya se logeo
 						// 1) Obtener los datos del usuario
-						window.user = auth2.currentUser.get().getBasicProfile()
+						window.user = auth.currentUser.get().getBasicProfile()
 						// 2) Mostrar el nombre del usuario
 						document.querySelector("#logout span").innerText = user.getName()
 						// 3) Mostrar el boton de bienvenida + logout
@@ -107,7 +107,7 @@
 
 			}
 
-			
+
 			//// LOGIN CON GOOGLE
 
 
