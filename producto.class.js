@@ -131,25 +131,6 @@ class Producto {
         storage[foundIndex].Disponible = this.disponible
         storage[foundIndex].Imagen = this.imagen
 
-
-        // console.log( foundItem )
-        // console.log( foundIndex )
-
-        // storage.forEach(item => {
-
-        //   if( item.idProducto == this.ID ){
-            
-        //     item.Nombre = this.nombre
-        //     item.Stock = this.stock
-        //     item.Precio = this.precio
-        //     item.Disponible = this.disponible
-        //     return
-        //   }
-
-        // })
-
-        
-
         localStorage.setItem("PRODUCTOS", JSON.stringify(storage)) // <-- Objec a JSON
       }
 

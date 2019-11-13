@@ -17,8 +17,11 @@
 				</button>
 				<nav class="collapse navbar-collapse" id="menu">
 					<ul class="navbar-nav ml-auto">
-						<li class="nav-item active">
-							<a class="nav-link" href="#">&#x1F512; Ingresar</a>
+						<li class="nav-item">
+							<a id="login" class="nav-link" href="#">&#x1F512; Ingresar</a>
+						</li>
+						<li class="nav-item d-none">
+							<a id="logout" class="nav-link" href="#">&#x1F512; Bienvenido <span>{{USUARIO}}</span> [X]</a>
 						</li>
 					</ul>
 				</nav>
@@ -28,9 +31,7 @@
 			<h2 class="w-100 my-3 p-3 border">&#x2B50; Productos Destacados</h2>
 
 			<!-- AREA PRODUCTOS DESTACADOS -->
-			<section id="productos-destacados" class="row">
-
-			</section>
+			<section id="productos-destacados" class="row"></section>
 
 			<h2 class="w-100 my-3 p-3 border">&#x2B50; Ultimos Productos</h2>
 			<!-- AREA ULTIMOS PRODUCTOS -->
@@ -61,6 +62,34 @@
 			})
 			
 			//// LOGIN CON GOOGLE
+			const bienvenida = () => {
+				// 1) Obtener los datos del usuario
+				window.user = auth2.currentUser.get().getBasicProfile()
+				// 2) Mostrar el nombre del usuario
+				document.querySelector("#logout span").innerText = user.getName()
+				// 3) Mostrar el boton de bienvenida + logout
+				document.querySelector("#logout").parentNode.classList.remove("d-none")
+			}
+
+			document.querySelector("#login").onclick = function(e){
+				// Desactivo el Hipervinculo
+				e.preventDefault()
+
+				if(auth.isSignedIn.get() ){
+					// Esta logeado!
+
+				}else{
+					// No está logeado!
+					auth.signIn().then(function(){ // <-- acá ya se logeo
+						// 1) Obtener los datos del usuario
+						window.user = auth.currentUser.get().getBasicProfile()
+						// 2) Dar la bienvenida
+						bienvenida()
+					})
+				}
+
+			}
+
 
 			//* AJAX Moderno con el metodo fetch() *//
 			const crearCatalogo = function(items){
